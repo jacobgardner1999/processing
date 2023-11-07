@@ -1,4 +1,4 @@
-int[][] field;
+float[][] field;
 int rez = 10;
 int cols;
 int rows;
@@ -9,11 +9,11 @@ void setup() {
   background(150);
   cols = width / rez;
   rows = height / rez;
-  field = new int[cols][rows];
+  field = new float[cols][rows];
   for (int i = 0; i < cols; i++) {
     for (int j = 0; j < rows; j++) {
-      field[i][j] = floor(random(2));
-      }
+      field[i][j] = random(1);
+    }
   }
 }
 
@@ -33,17 +33,23 @@ void draw() {
       PVector b = new PVector(x + rez, y + rez * 0.5);
       PVector c = new PVector(x + rez * 0.5, y + rez);
       PVector d = new PVector(x, y + rez * 0.5);
-      int state = getState(field[i][j], field[i+1][j], field[i+1][j+1], field[i][j+1]);
+      int state = getState(round(field[i][j]), 
+          round(field[i+1][j]), 
+          round(field[i+1][j+1]), 
+          round(field[i][j+1])
+          );
       
       stroke(255);
       strokeWeight(0.5);
       switch (state) {
         case 1: 
         case 14:
+          strokeWeight(0.25);
           line(d, a);    
           break;
         case 2:
         case 13:
+          strokeWeight(0.25);
           line(a, b);
           break;
         case 3:
@@ -52,9 +58,11 @@ void draw() {
           break;
         case 4:
         case 11:
+          strokeWeight(0.25);
           line(c, b);
           break;
         case 5:
+          strokeWeight(0.25);
           line(d, a);
           line(c, b);
           break;
@@ -64,9 +72,11 @@ void draw() {
           break;
         case 7:
         case 8:
+          strokeWeight(0.25);
           line(d, c);
           break;
         case 10:
+          strokeWeight(0.25);
           line(d, a);
           line(c, b);
           break;
