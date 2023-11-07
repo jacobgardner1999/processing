@@ -1,16 +1,26 @@
-int r = 10;
+float[][] field;
+int rez = 10;
+int cols;
+int rows;
 
 void setup() {
   size(500, 500);
-  int cols = width / r;
-  int rows = height / r;
+  cols = width / rez;
+  rows = height / rez;
+  field = new float[cols][rows];
   for (int i = 0; i < cols; i++) {
     for (int j = 0; j < rows; j++) {
-      Point point = new Point(i * r + 5, j * r + 5); 
+      field[i][j] = random(1);
       }
   }
 }
 
 void draw() {
+  for (int i = 0; i < cols; i++) {
+    for (int j = 0; j < rows; j++) {
+      stroke(field[i][j]*255);
+      point(i*rez, j*rez);
+      }
+  }
 
 }
