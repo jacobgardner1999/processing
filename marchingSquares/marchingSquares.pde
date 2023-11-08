@@ -1,26 +1,34 @@
 float[][] field;
-int rez = 10;
-int cols;
-int rows;
+int rez = 25;
+int cols, rows;
+int pointRez = 10;
+int lineRez = 2;
 
+OpenSimplexNoise noise;
 
 void setup() {
   size(500, 500);
-  background(150);
+  noise = new OpenSimplexNoise();
   cols = width / rez;
   rows = height / rez;
   field = new float[cols][rows];
-  for (int i = 0; i < cols; i++) {
-    for (int j = 0; j < rows; j++) {
-      field[i][j] = random(1);
-    }
-  }
 }
 
 void draw() {
+  background(150);
+  float xOff = 0;
+  for (int i = 0; i < cols; i++) {
+    float yOff = 0;
+    xOff += 1;
+    for (int j = 0; j < rows; j++) {
+      field[i][j] = noise(xOff, yOff);
+      yOff += 1;
+    }
+  }
   for (int i = 0; i < cols; i++) {
     for (int j = 0; j < rows; j++) {
       stroke(field[i][j]*255);
+      strokeWeight(pointRez);
       point(i*rez, j*rez);
       }
   }
@@ -40,16 +48,16 @@ void draw() {
           );
       
       stroke(255);
-      strokeWeight(0.5);
+      strokeWeight(lineRez);
       switch (state) {
         case 1: 
         case 14:
-          strokeWeight(0.25);
+          strokeWeight(lineRez / 2);
           line(d, a);    
           break;
         case 2:
         case 13:
-          strokeWeight(0.25);
+          strokeWeight(lineRez / 2);
           line(a, b);
           break;
         case 3:
@@ -58,11 +66,11 @@ void draw() {
           break;
         case 4:
         case 11:
-          strokeWeight(0.25);
+          strokeWeight(lineRez / 2);
           line(c, b);
           break;
         case 5:
-          strokeWeight(0.25);
+          strokeWeight(lineRez / 2);
           line(d, a);
           line(c, b);
           break;
@@ -72,11 +80,11 @@ void draw() {
           break;
         case 7:
         case 8:
-          strokeWeight(0.25);
+          strokeWeight(lineRez / 2);
           line(d, c);
           break;
         case 10:
-          strokeWeight(0.25);
+          strokeWeight(lineRez / 2);
           line(d, a);
           line(c, b);
           break;
