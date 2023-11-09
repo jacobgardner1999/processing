@@ -1,14 +1,15 @@
 float[][] field;
-int rez = 25;
+int rez = 10;
 int cols, rows;
-int pointRez = 10;
+int pointRez = 5;
 int lineRez = 2;
+float zOff = 0;
 
 OpenSimplexNoise noise;
 
 void setup() {
   size(500, 500);
-  noise = new OpenSimplexNoise();
+  noise = new OpenSimplexNoise((long)(random(10)));
   cols = width / rez;
   rows = height / rez;
   field = new float[cols][rows];
@@ -21,10 +22,11 @@ void draw() {
     float yOff = 0;
     xOff += 1;
     for (int j = 0; j < rows; j++) {
-      field[i][j] = noise(xOff, yOff);
+      field[i][j] = noise.noise(xOff, yOff, zOff);
       yOff += 1;
     }
   }
+  zOff += 0.005;
   for (int i = 0; i < cols; i++) {
     for (int j = 0; j < rows; j++) {
       stroke(field[i][j]*255);
